@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <meta name="author" content="baduyifei">
+
+
+
+
+
+<title>总结国内和国外的个人博客 | 八度易飞</title>
+
+
+
+<link rel="icon" href="https://wenqidao.oss-cn-shanghai.aliyuncs.com/img/202309220259710.png">
+
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/nprogress/nprogress.css">
+
+
+
+<script src="/lib/jquery.min.js"></script>
+
+
+<script src="/lib/iconify-icon.min.js"></script>
+
+
+<script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+  };
+</script>
+
+
+<script src="/lib/nprogress/nprogress.js"></script>
+
+<script>
+  $(document).ready(() => {
+    NProgress.configure({
+      showSpinner: false,
+    });
+    NProgress.start();
+    $("#nprogress .bar").css({
+      background: "#de7441",
+    });
+    $("#nprogress .peg").css({
+      "box-shadow": "0 0 2px #de7441, 0 0 4px #de7441",
+    });
+    $("#nprogress .spinner-icon").css({
+      "border-top-color": "#de7441",
+      "border-left-color": "#de7441",
+    });
+    setTimeout(function () {
+      NProgress.done();
+      $(".fade").removeClass("out");
+    }, 800);
+  });
+</script>
+
+<script>
+  (function () {
+    const prefersDark =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const setting = localStorage.getItem("hexo-color-scheme") || "auto";
+    if (setting === "dark" || (prefersDark && setting !== "light"))
+      document.documentElement.classList.toggle("dark", true);
+    let isDark = document.documentElement.classList.contains("dark");
+  })();
+
+  $(document).ready(function () {
+    // init icon
+    const prefersDark =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = document.documentElement.classList.contains("dark");
+    $("#theme-icon").attr("icon", isDark ? "ri:moon-line" : "ri:sun-line");
+
+    function toggleGiscusTheme() {
+      const isDark = document.documentElement.classList.contains("dark");
+      const giscusFrame = document.querySelector("iframe.giscus-frame");
+      if (giscusFrame) {
+        giscusFrame.contentWindow.postMessage(
+          {
+            giscus: {
+              setConfig: {
+                theme: isDark ? "dark" : "light",
+              },
+            },
+          },
+          "https://giscus.app"
+        );
+      }
+    }
+
+
+    // toggle dark mode
+    function toggleDark() {
+      let isDark = document.documentElement.classList.contains("dark");
+      const setting = localStorage.getItem("hexo-color-scheme") || "auto";
+      isDark = !isDark;
+      document.documentElement.classList.toggle("dark", isDark);
+      $("#theme-icon").attr("icon", isDark ? "ri:moon-line" : "ri:sun-line");
+      if (prefersDark === isDark) {
+        localStorage.setItem("hexo-color-scheme", "auto");
+      } else {
+        localStorage.setItem("hexo-color-scheme", isDark ? "dark" : "light");
+      }
+      toggleGiscusTheme();
+    }
+    $("#toggle-dark").click(toggleDark);
+
+    // listen dark mode change
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (e) => {
+        const setting = localStorage.getItem("hexo-color-scheme") || "auto";
+        if (setting === "auto") {
+          document.documentElement.classList.toggle("dark", e.matches);
+          $("#theme-icon").attr(
+            "icon",
+            e.matches ? "ri:moon-line" : "ri:sun-line"
+          );
+          toggleGiscusTheme();
+        }
+      });
+  });
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body class="font-sans bg-white dark:bg-zinc-900 text-gray-700 dark:text-gray-200 relative">
+  <header class="fixed w-full px-5 py-1 z-10 backdrop-blur-xl backdrop-saturate-150 border-b border-black/5">
+    <div class="max-auto">
+        <nav class="flex items-center text-base">
+            <a href="/" class="group">
+                <h2 class="font-medium tracking-tighterp text-l p-2">
+                    <img class="w-5 mr-2 inline-block transition-transform group-hover:rotate-[30deg]" id="logo" src="https://wenqidao.oss-cn-shanghai.aliyuncs.com/img/202309220259710.png" alt="八度易飞" />
+                    八度易飞
+                </h2>
+            </a>
+            <div id="header-title" class="opacity-0 md:ml-2 md:mt-[0.1rem] text-xs font-medium whitespace-nowrap overflow-hidden overflow-ellipsis">
+                总结国内和国外的个人博客
+            </div>
+            <div class="flex-1"></div>
+            <div class="flex items-center gap-3">
+                
+                    <a class="hidden sm:flex" href="https://baduyifei.com">
+                        主页
+                    </a>
+                    
+                    <a class="hidden sm:flex" href="/archives/">
+                        归档
+                    </a>
+                    
+                    <a class="hidden sm:flex" target="_blank" rel="noopener" href="https://about.baduyifei.com/">
+                        关于我
+                    </a>
+                    
+                        
+                                        <!-- <a class="w-5 h-5 hidden sm:flex" title="" href="rss2.xml">
+          <iconify-icon width="20" icon="ri:rss-line"></iconify-icon>
+        </a> -->
+                                        <a class="w-5 h-5" title="toggle theme" id="toggle-dark">
+                                            <iconify-icon width="20" icon="" id="theme-icon"></iconify-icon>
+                                        </a>
+            </div>
+            <div class="flex items-center justify-center gap-3 ml-3 sm:hidden">
+                <span class="w-5 h-5" aria-hidden="true" role="img" id="open-menu">
+          <iconify-icon width="20" icon="carbon:menu" ></iconify-icon>
+        </span>
+                <span class="w-5 h-5 hidden" aria-hidden="true" role="img" id="close-menu">
+          <iconify-icon  width="20" icon="carbon:close" ></iconify-icon>
+        </span>
+            </div>
+        </nav>
+    </div>
+</header>
+<div id="menu-panel" class="h-0 overflow-hidden sm:hidden fixed left-0 right-0 top-12 bottom-0 z-10">
+    <div id="menu-content" class="relative z-20 bg-white/80 px-6 sm:px-8 py-2 backdrop-blur-xl -translate-y-full transition-transform duration-300">
+        <ul class="nav flex flex-col sm:flex-row text-sm font-medium">
+            
+                <li class="nav-portfolio sm:mx-2 border-b sm:border-0 border-black/5 last:border-0 hover:text-main">
+                    <a href="https://baduyifei.com" class="flex h-12 sm:h-auto items-center">
+                        主页
+                    </a>
+                </li>
+                
+                <li class="nav-portfolio sm:mx-2 border-b sm:border-0 border-black/5 last:border-0 hover:text-main">
+                    <a href="/archives/" class="flex h-12 sm:h-auto items-center">
+                        归档
+                    </a>
+                </li>
+                
+                <li class="nav-portfolio sm:mx-2 border-b sm:border-0 border-black/5 last:border-0 hover:text-main">
+                    <a target="_blank" rel="noopener" href="https://about.baduyifei.com/" class="flex h-12 sm:h-auto items-center">
+                        关于我
+                    </a>
+                </li>
+                
+        </ul>
+    </div>
+    <div class="mask bg-black/20 absolute inset-0"></div>
+</div>
+  <main class="pt-14">
+    <!-- css -->
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.min.css">
+
+
+<link rel="stylesheet" href="/lib/tocbot/tocbot.min.css">
+
+<!-- toc -->
+
+  <!-- tocbot -->
+<nav class="post-toc toc text-sm w-48 relative top-32 right-0 opacity-70 hidden lg:block" style="position: fixed !important;"></nav>
+
+
+<section class="px-6 max-w-prose mx-auto md:px-0">
+  <!-- header -->
+  <header class="overflow-hidden pt-6 pb-6 md:pt-12">
+    <div class="pt-4 md:pt-6">
+      <h1 id="article-title" class="text-[2rem] font-bold leading-snug mb-4 md:mb-6 md:text-[2.6rem]">
+        总结国内和国外的个人博客
+      </h1>
+      <div>
+        <section class="flex items-center gap-3 text-sm">
+          <span class="flex items-center gap-1">
+            <iconify-icon width="18" icon="carbon-calendar" ></iconify-icon>
+            <time>2023-09-13</time>
+          </span>
+          <span class="text-gray-400">·</span>
+          <span class="flex items-center gap-1">
+            <iconify-icon width="18" icon="ic:round-access-alarm" ></iconify-icon>
+            <span>4 min</span>
+          </span>
+          <span class="text-gray-400">·</span>
+          <span class="flex items-center gap-1">
+            <iconify-icon width="18" icon="icon-park-outline:font-search" ></iconify-icon>
+            <span>924 words</span>
+          </span>
+          
+        </section>
+      </div>
+    </div>
+  </header>
+  <!-- content -->
+  <article class="post-content prose m-auto slide-enter-content dark:prose-invert">
+    <h1 id="总结国内和国外的个人博客"><a href="#总结国内和国外的个人博客" class="headerlink" title="总结国内和国外的个人博客"></a>总结国内和国外的个人博客</h1><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th><strong>国内</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1、</td>
+<td>王佩</td>
+<td>王佩白板报</td>
+<td><a target="_blank" rel="noopener" href="https://wangpei.me/">https://wangpei.me/</a><br /><a target="_blank" rel="noopener" href="https://wangpei.net/">https://wangpei.net</a><br /><a target="_blank" rel="noopener" href="https://baibanbao.net/">https://baibanbao.net</a></td>
+</tr>
+<tr>
+<td>2、</td>
+<td>happy xiao</td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://happyxiao.com/">https://happyxiao.com/</a></td>
+</tr>
+<tr>
+<td>3、</td>
+<td>少楠&#x2F;产品沉思录</td>
+<td>产品沉思录是2016年底我送给自己的三十岁生日礼物</td>
+<td><a target="_blank" rel="noopener" href="https://www.pmthinking.com/">https://www.pmthinking.com/</a></td>
+</tr>
+<tr>
+<td>4、</td>
+<td>航通社</td>
+<td>航通社提供原创科技新闻观点</td>
+<td><a target="_blank" rel="noopener" href="https://lishuhang.me/">https://lishuhang.me/</a></td>
+</tr>
+<tr>
+<td>5、</td>
+<td>Shidenggui</td>
+<td>元思笔记创始人</td>
+<td><a target="_blank" rel="noopener" href="https://shidenggui.com/">https://shidenggui.com/</a></td>
+</tr>
+<tr>
+<td>6、</td>
+<td>林米</td>
+<td>95后，Notion 中文社区负责人。</td>
+<td><a target="_blank" rel="noopener" href="https://linmi.cc/">https://linmi.cc/</a></td>
+</tr>
+<tr>
+<td>7、</td>
+<td>智识ideobook</td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="http://www.ideobook.com/archives/">http://www.ideobook.com/archives/</a></td>
+</tr>
+<tr>
+<td>8、</td>
+<td>李长太</td>
+<td>关注omni系列的教程</td>
+<td><a target="_blank" rel="noopener" href="http://www.lichangtai.com/omnigroup/omnifocus">http://www.lichangtai.com/</a></td>
+</tr>
+<tr>
+<td>9、</td>
+<td>左子祯</td>
+<td>figma中文社区负责人。现在就职于MasterGO</td>
+<td><a target="_blank" rel="noopener" href="https://zuozizhen.com/">https://zuozizhen.com/</a><br /><a target="_blank" rel="noopener" href="https://figmachina.com/">(https://figmachina.com/)</a></td>
+</tr>
+<tr>
+<td>10、</td>
+<td>叶夕青兮</td>
+<td>很美的一个博客，名字叫做：我的私家花园</td>
+<td><a target="_blank" rel="noopener" href="https://erl.im/">https://erl.im/</a></td>
+</tr>
+<tr>
+<td>11、</td>
+<td>Jerry’s Blog</td>
+<td>因为Notion-faster而认识的。少楠在产品沉思录里面推荐的。</td>
+<td><a target="_blank" rel="noopener" href="https://jerryw.cn/">https://jerryw.cn/</a></td>
+</tr>
+<tr>
+<td>12、</td>
+<td>善用佳软</td>
+<td>张玉新</td>
+<td><a target="_blank" rel="noopener" href="https://xbeta.info/">https://xbeta.info/</a></td>
+</tr>
+<tr>
+<td>13、</td>
+<td>李参培训师</td>
+<td>培训师，专注时间管理培训</td>
+<td><a target="_blank" rel="noopener" href="http://www.lishen.me/">http://www.lishen.me/</a></td>
+</tr>
+<tr>
+<td>14、</td>
+<td>褪墨</td>
+<td>褪墨・时间管理，个人提升，生活健康与习惯</td>
+<td><a target="_blank" rel="noopener" href="http://www.mifengtd.cn/">http://www.mifengtd.cn/</a></td>
+</tr>
+<tr>
+<td>15、</td>
+<td>战隼</td>
+<td>read：专门研究如何有效的提升学习能力<br />write：分享各种书的思维导图笔记</td>
+<td><a target="_blank" rel="noopener" href="http://www.read.org.cn/">http://www.read.org.cn/</a><br /><a target="_blank" rel="noopener" href="http://www.write.org.cn/">http://www.write.org.cn/（网站已失效）</a></td>
+</tr>
+<tr>
+<td>16、</td>
+<td>json</td>
+<td>Jason，独立开发者，自由职业者。Klib、iPic、iText、iHosts、iPaste、iTimer 作者</td>
+<td><a target="_blank" rel="noopener" href="https://atjason.com/">https://atjason.com/</a></td>
+</tr>
+<tr>
+<td>17、</td>
+<td>奔跑中的奶酪</td>
+<td>RunningCheese Chrome 是一款提高 Chrome 易用性的定制版浏览器</td>
+<td><a target="_blank" rel="noopener" href="https://www.runningcheese.com/">https://www.runningcheese.com/</a></td>
+</tr>
+<tr>
+<td>18、</td>
+<td>千羽的编程时光</td>
+<td>页面真好看</td>
+<td><a target="_blank" rel="noopener" href="https://nateshao.gitee.io/">https://nateshao.gitee.io/</a></td>
+</tr>
+<tr>
+<td>19、</td>
+<td>廖雪峰的个人网站</td>
+<td>java开发的大神网站</td>
+<td><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/">https://www.liaoxuefeng.com/</a></td>
+</tr>
+<tr>
+<td>20、</td>
+<td>刘法</td>
+<td>Java &amp; Web 程序员，网站做的很好看</td>
+<td><a target="_blank" rel="noopener" href="http://joylau.cn/">http://joylau.cn/</a></td>
+</tr>
+<tr>
+<td>21、</td>
+<td>邹鑫</td>
+<td>小强升职记的作者。从2007年到现在2021年8月，一直还在更新。坚持的贼好啊。</td>
+<td><a target="_blank" rel="noopener" href="http://www.gtdlife.com/">http://www.gtdlife.com/</a></td>
+</tr>
+<tr>
+<td>22、</td>
+<td>卢松松</td>
+<td>创业和运营的论坛性质</td>
+<td><a target="_blank" rel="noopener" href="https://lusongsong.com/">https://lusongsong.com/</a></td>
+</tr>
+<tr>
+<td>23、</td>
+<td>周金根</td>
+<td>敏捷个人</td>
+<td><a target="_blank" rel="noopener" href="http://www.zhoujingen.cn/">http://www.zhoujingen.cn/</a><br /><a target="_blank" rel="noopener" href="http://www.zhoujingen.cn/blog/">http://www.zhoujingen.cn/blog/</a><br /><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhoujg/">https://www.cnblogs.com/zhoujg/</a><br /><a target="_blank" rel="noopener" href="http://blog.vsharing.com/zhoujg/">http://blog.vsharing.com/zhoujg/</a></td>
+</tr>
+<tr>
+<td>24、</td>
+<td>易仁永澄</td>
+<td>runwith.cc-tm“个人成长操作系统”系统动力分析原理</td>
+<td><a target="_blank" rel="noopener" href="http://tm.runwith.cc/read/yong-cheng-an-xiang/pgossystemdynamicanalysis">http://tm.runwith.cc/read/yong-cheng-an-xiang/pgossystemdynamicanalysis</a></td>
+</tr>
+<tr>
+<td></td>
+<td>易仁永澄</td>
+<td>runwith.cc-成果库</td>
+<td><a target="_blank" rel="noopener" href="http://www.runwith.cc/">http://www.runwith.cc/</a></td>
+</tr>
+<tr>
+<td></td>
+<td>易仁永澄</td>
+<td>个人网站hiddenwangcc</td>
+<td><a target="_blank" rel="noopener" href="http://blog.hiddenwangcc.com/archives">http://blog.hiddenwangcc.com/archives</a></td>
+</tr>
+<tr>
+<td></td>
+<td>易仁永澄</td>
+<td>upwith.me-blog</td>
+<td><a target="_blank" rel="noopener" href="http://blog.upwith.me/">http://blog.upwith.me/</a></td>
+</tr>
+<tr>
+<td></td>
+<td>易仁永澄</td>
+<td>upwith.me-bbs</td>
+<td><a target="_blank" rel="noopener" href="http://bbs.upwith.me/">http://bbs.upwith.me/</a></td>
+</tr>
+<tr>
+<td></td>
+<td>易仁永澄</td>
+<td>年目标活动</td>
+<td><a target="_blank" rel="noopener" href="https://nianmubiao.com/">https://nianmubiao.com/</a></td>
+</tr>
+<tr>
+<td></td>
+<td>易仁永澄</td>
+<td>做自己的ceo</td>
+<td><a target="_blank" rel="noopener" href="http://bemyceo.com/">http://bemyceo.com/</a></td>
+</tr>
+<tr>
+<td>25、</td>
+<td>笨方法学写作</td>
+<td>陈素封</td>
+<td><a target="_blank" rel="noopener" href="https://www.cnfeat.com/archive/">https://www.cnfeat.com/archive/</a></td>
+</tr>
+<tr>
+<td>26、</td>
+<td>阳志平</td>
+<td>开智学堂、心智工具箱、阳志平</td>
+<td><a target="_blank" rel="noopener" href="https://www.yangzhiping.com/tech/">https://www.yangzhiping.com</a></td>
+</tr>
+<tr>
+<td>27、</td>
+<td>李承璋WHY·LIAM</td>
+<td>李承璋，数据产品经理 ，旅行、摄影和编程。<br />超级棒的博客啊</td>
+<td><a target="_blank" rel="noopener" href="https://www.naaln.com/">https://www.naaln.com/</a><br /><a target="_blank" rel="noopener" href="https://blog.naaln.com/">https://blog.naaln.com/</a></td>
+</tr>
+<tr>
+<td>28、</td>
+<td>刘未鹏</td>
+<td>刘未鹏的博客「MIND HACKS 」，更新慢，但是每篇都是干货！</td>
+<td><a target="_blank" rel="noopener" href="http://mindhacks.cn/">http://mindhacks.cn/</a></td>
+</tr>
+<tr>
+<td>29、</td>
+<td>万维钢</td>
+<td>学而时嬉之，万维钢的个人博客</td>
+<td><a target="_blank" rel="noopener" href="https://www.geekonomics10000.com/">https://www.geekonomics10000.com/</a></td>
+</tr>
+<tr>
+<td>30、</td>
+<td>苏杰</td>
+<td>人人都是产品经理的作者</td>
+<td><a target="_blank" rel="noopener" href="http://iamsujie.com/">http://iamsujie.com/</a></td>
+</tr>
+<tr>
+<td>31、</td>
+<td>oeasy老师</td>
+<td>oeasy教程，刘青老师</td>
+<td><a target="_blank" rel="noopener" href="http://oeasy.org/">http://oeasy.org/</a></td>
+</tr>
+<tr>
+<td>32、</td>
+<td>费照君</td>
+<td>前端工程师，拍照爱好者，资深梦想家。</td>
+<td><a target="_blank" rel="noopener" href="https://feizhaojun.com/">https://feizhaojun.com/</a></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><strong>国外</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>1、</td>
+<td>Andy Matuschak</td>
+<td>ios系统工程师，提出：常青笔记</td>
+<td><a target="_blank" rel="noopener" href="https://andymatuschak.org/">https://andymatuschak.org/</a></td>
+</tr>
+<tr>
+<td>2、</td>
+<td>lifehack</td>
+<td>生活黑客</td>
+<td><a target="_blank" rel="noopener" href="https://lifehack.org/">https://lifehack.org/</a></td>
+</tr>
+<tr>
+<td>3、</td>
+<td>lifehacker</td>
+<td>生活黑客</td>
+<td><a target="_blank" rel="noopener" href="https://lifehacker.com/">https://lifehacker.com/</a></td>
+</tr>
+<tr>
+<td>4、</td>
+<td>will</td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://www.kestrelcreek.com/about">https://www.kestrelcreek.com/about</a></td>
+</tr>
+<tr>
+<td>5、</td>
+<td>Zen Habits</td>
+<td>Zen Habits，GTD：禅宗习惯</td>
+<td><a target="_blank" rel="noopener" href="https://zenhabits.net/archives/">https://zenhabits.net/archives/</a></td>
+</tr>
+<tr>
+<td>6、</td>
+<td>zettelkasten</td>
+<td>卢曼卡片</td>
+<td><a target="_blank" rel="noopener" href="https://zettelkasten.de/posts/">https://zettelkasten.de/posts/</a></td>
+</tr>
+</tbody></table>
+<blockquote>
+<h4 id="changelog："><a href="#changelog：" class="headerlink" title="changelog："></a><strong>changelog：</strong></h4><ul>
+<li><p>2021.08.08 </p>
+<ul>
+<li><p>创建：创建该日志，目前共30个</p>
+</li>
+<li><p>修改：分为国内和国外，</p>
+</li>
+<li><p>新增：添加了Andy Matuschak的网站</p>
+</li>
+</ul>
+</li>
+<li><p>2021.08.09 </p>
+<ul>
+<li>新增李承璋WHY·LIAM，一个超级棒的个人博客。</li>
+</ul>
+</li>
+<li><p>2021.08.10  </p>
+<ul>
+<li>新增oeasy老师</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+  </article>
+  <!-- tag -->
+  <div class="mt-12 pt-6 border-t border-gray-200">
+    
+      
+        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 m-1 text-sm rounded-md transition-colors hover:bg-gray-200">
+          <a href="/tags/blog/">blog</a>
+        </span>
+      
+        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 m-1 text-sm rounded-md transition-colors hover:bg-gray-200">
+          <a href="/tags/cool/">cool</a>
+        </span>
+      
+    
+  </div>
+  <!-- prev and next -->
+  <div class="flex justify-between mt-12 pt-6 border-t border-gray-200">
+    <div>
+      
+        <a href="/p/20230608-night-watcher-swear/" class="text-sm text-gray-400 hover:text-gray-500 flex justify-center">
+          <iconify-icon width="20" icon="ri:arrow-left-s-line" data-inline="false"></iconify-icon>
+          美剧《权力的游戏》守夜人誓词
+        </a>
+      
+    </div>
+    <div>
+      
+        <a href="/p/20230602-signingKeys-authenticationKeys/" class="text-sm text-gray-400 hover:text-gray-500 flex justify-center">
+          签名密钥(signing keys)和认证密钥(authentication keys)的主要区别
+          <iconify-icon width="20" icon="ri:arrow-right-s-line" data-inline="false"></iconify-icon>
+        </a>
+      
+    </div>
+  </div>
+  <!-- comment -->
+  <div class="article-comments mt-12">
+    
+
+  </div>
+</section>
+<!-- js inspect -->
+
+<script src="/lib/clipboard.min.js"></script>
+
+
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(() => {
+    const maraidConfig = {
+      theme: "default",
+      logLevel: 3,
+      flowchart: { curve: "linear" },
+      gantt: { axisFormat: "%m/%d/%Y" },
+      sequence: { actorMargin: 50 },
+    };
+    mermaid.initialize(maraidConfig);
+  });
+</script>
+
+
+
+<script src="/lib/fancybox/fancybox.umd.min.js"></script>
+
+<script>
+  $(document).ready(() => {
+    $('.post-content').each(function(i){
+      $(this).find('img').each(function(){
+        if ($(this).parent().hasClass('fancybox') || $(this).parent().is('a')) return;
+        var alt = this.alt;
+        if (alt) $(this).after('<span class="fancybox-alt">' + alt + '</span>');
+        $(this).wrap('<a class="fancybox-img" href="' + this.src + '" data-fancybox=\"gallery\" data-caption="' + alt + '"></a>')
+      });
+      $(this).find('.fancybox').each(function(){
+        $(this).attr('rel', 'article' + i);
+      });
+    });
+
+    Fancybox.bind('[data-fancybox="gallery"]', {
+        // options
+    })
+  })
+</script>
+
+<!-- tocbot begin -->
+
+<script src="/lib/tocbot/tocbot.min.js"></script>
+
+<script>
+  $(document).ready(() => {
+      tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.post-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.post-content',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+        // For headings inside relative or absolute positioned containers within content.
+        hasInnerContainers: true,
+    });
+  })
+</script>
+<!-- tocbot end -->
+
+
+  </main>
+  <footer class="flex flex-col h-40 items-center justify-center text-gray-400 text-sm">
+    <!-- busuanzi -->
+    
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- Busuanzi Analytics -->
+<div class="flex items-center gap-2">
+  <span>Visitors</span>
+  <span id="busuanzi_value_site_uv"></span>
+  <span>Page Views</span>
+  <span id="busuanzi_value_site_pv"></span>
+</div>
+<!-- End Busuanzi Analytics -->
+
+
+        <!-- copyright -->
+        <div class="flex items-center gap-2">
+
+            <span>CC BY-NC-SA 4.0 © 2023</span>
+            <iconify-icon width="18" icon="emojione-monotone:maple-leaf"></iconify-icon>
+            <a href="https://baduyifei.com" target="_blank" rel="noopener noreferrer">baduyifei</a>
+        </div>
+        <!-- powered by -->
+        <div class="flex items-center gap-2">
+            <span>Nothing is impossible for a willing heart.</span>
+
+        </div>
+
+</footer>
+  <div class="back-to-top box-border fixed right-6 z-1024 -bottom-20 rounded py-1 px-1 bg-slate-900 opacity-60 text-white cursor-pointer text-center dark:bg-slate-600">
+    <span class="flex justify-center items-center text-sm">
+      <iconify-icon width="18" icon="ion:arrow-up-c" id="go-top"></iconify-icon>
+      <span id="scrollpercent"><span>0</span> %</span>
+    </span>
+  </div>
+  
+<script src="/js/main.js"></script>
+
+
+
+
+  <div class="fixed top-0 bottom-0 left-0 right-0 pointer-events-none print:hidden" id="maple"></div>
+</body>
+
+</html>

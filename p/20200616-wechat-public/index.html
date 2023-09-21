@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <meta name="author" content="baduyifei">
+
+
+
+
+
+<title>开始做公众号的第一天，给自己反思过往、改变生活的机会 | 八度易飞</title>
+
+
+
+<link rel="icon" href="https://wenqidao.oss-cn-shanghai.aliyuncs.com/img/202309220259710.png">
+
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/nprogress/nprogress.css">
+
+
+
+<script src="/lib/jquery.min.js"></script>
+
+
+<script src="/lib/iconify-icon.min.js"></script>
+
+
+<script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+  };
+</script>
+
+
+<script src="/lib/nprogress/nprogress.js"></script>
+
+<script>
+  $(document).ready(() => {
+    NProgress.configure({
+      showSpinner: false,
+    });
+    NProgress.start();
+    $("#nprogress .bar").css({
+      background: "#de7441",
+    });
+    $("#nprogress .peg").css({
+      "box-shadow": "0 0 2px #de7441, 0 0 4px #de7441",
+    });
+    $("#nprogress .spinner-icon").css({
+      "border-top-color": "#de7441",
+      "border-left-color": "#de7441",
+    });
+    setTimeout(function () {
+      NProgress.done();
+      $(".fade").removeClass("out");
+    }, 800);
+  });
+</script>
+
+<script>
+  (function () {
+    const prefersDark =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const setting = localStorage.getItem("hexo-color-scheme") || "auto";
+    if (setting === "dark" || (prefersDark && setting !== "light"))
+      document.documentElement.classList.toggle("dark", true);
+    let isDark = document.documentElement.classList.contains("dark");
+  })();
+
+  $(document).ready(function () {
+    // init icon
+    const prefersDark =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = document.documentElement.classList.contains("dark");
+    $("#theme-icon").attr("icon", isDark ? "ri:moon-line" : "ri:sun-line");
+
+    function toggleGiscusTheme() {
+      const isDark = document.documentElement.classList.contains("dark");
+      const giscusFrame = document.querySelector("iframe.giscus-frame");
+      if (giscusFrame) {
+        giscusFrame.contentWindow.postMessage(
+          {
+            giscus: {
+              setConfig: {
+                theme: isDark ? "dark" : "light",
+              },
+            },
+          },
+          "https://giscus.app"
+        );
+      }
+    }
+
+
+    // toggle dark mode
+    function toggleDark() {
+      let isDark = document.documentElement.classList.contains("dark");
+      const setting = localStorage.getItem("hexo-color-scheme") || "auto";
+      isDark = !isDark;
+      document.documentElement.classList.toggle("dark", isDark);
+      $("#theme-icon").attr("icon", isDark ? "ri:moon-line" : "ri:sun-line");
+      if (prefersDark === isDark) {
+        localStorage.setItem("hexo-color-scheme", "auto");
+      } else {
+        localStorage.setItem("hexo-color-scheme", isDark ? "dark" : "light");
+      }
+      toggleGiscusTheme();
+    }
+    $("#toggle-dark").click(toggleDark);
+
+    // listen dark mode change
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (e) => {
+        const setting = localStorage.getItem("hexo-color-scheme") || "auto";
+        if (setting === "auto") {
+          document.documentElement.classList.toggle("dark", e.matches);
+          $("#theme-icon").attr(
+            "icon",
+            e.matches ? "ri:moon-line" : "ri:sun-line"
+          );
+          toggleGiscusTheme();
+        }
+      });
+  });
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body class="font-sans bg-white dark:bg-zinc-900 text-gray-700 dark:text-gray-200 relative">
+  <header class="fixed w-full px-5 py-1 z-10 backdrop-blur-xl backdrop-saturate-150 border-b border-black/5">
+    <div class="max-auto">
+        <nav class="flex items-center text-base">
+            <a href="/" class="group">
+                <h2 class="font-medium tracking-tighterp text-l p-2">
+                    <img class="w-5 mr-2 inline-block transition-transform group-hover:rotate-[30deg]" id="logo" src="https://wenqidao.oss-cn-shanghai.aliyuncs.com/img/202309220259710.png" alt="八度易飞" />
+                    八度易飞
+                </h2>
+            </a>
+            <div id="header-title" class="opacity-0 md:ml-2 md:mt-[0.1rem] text-xs font-medium whitespace-nowrap overflow-hidden overflow-ellipsis">
+                开始做公众号的第一天，给自己反思过往、改变生活的机会
+            </div>
+            <div class="flex-1"></div>
+            <div class="flex items-center gap-3">
+                
+                    <a class="hidden sm:flex" href="https://baduyifei.com">
+                        主页
+                    </a>
+                    
+                    <a class="hidden sm:flex" href="/archives/">
+                        归档
+                    </a>
+                    
+                    <a class="hidden sm:flex" target="_blank" rel="noopener" href="https://about.baduyifei.com/">
+                        关于我
+                    </a>
+                    
+                        
+                                        <!-- <a class="w-5 h-5 hidden sm:flex" title="" href="rss2.xml">
+          <iconify-icon width="20" icon="ri:rss-line"></iconify-icon>
+        </a> -->
+                                        <a class="w-5 h-5" title="toggle theme" id="toggle-dark">
+                                            <iconify-icon width="20" icon="" id="theme-icon"></iconify-icon>
+                                        </a>
+            </div>
+            <div class="flex items-center justify-center gap-3 ml-3 sm:hidden">
+                <span class="w-5 h-5" aria-hidden="true" role="img" id="open-menu">
+          <iconify-icon width="20" icon="carbon:menu" ></iconify-icon>
+        </span>
+                <span class="w-5 h-5 hidden" aria-hidden="true" role="img" id="close-menu">
+          <iconify-icon  width="20" icon="carbon:close" ></iconify-icon>
+        </span>
+            </div>
+        </nav>
+    </div>
+</header>
+<div id="menu-panel" class="h-0 overflow-hidden sm:hidden fixed left-0 right-0 top-12 bottom-0 z-10">
+    <div id="menu-content" class="relative z-20 bg-white/80 px-6 sm:px-8 py-2 backdrop-blur-xl -translate-y-full transition-transform duration-300">
+        <ul class="nav flex flex-col sm:flex-row text-sm font-medium">
+            
+                <li class="nav-portfolio sm:mx-2 border-b sm:border-0 border-black/5 last:border-0 hover:text-main">
+                    <a href="https://baduyifei.com" class="flex h-12 sm:h-auto items-center">
+                        主页
+                    </a>
+                </li>
+                
+                <li class="nav-portfolio sm:mx-2 border-b sm:border-0 border-black/5 last:border-0 hover:text-main">
+                    <a href="/archives/" class="flex h-12 sm:h-auto items-center">
+                        归档
+                    </a>
+                </li>
+                
+                <li class="nav-portfolio sm:mx-2 border-b sm:border-0 border-black/5 last:border-0 hover:text-main">
+                    <a target="_blank" rel="noopener" href="https://about.baduyifei.com/" class="flex h-12 sm:h-auto items-center">
+                        关于我
+                    </a>
+                </li>
+                
+        </ul>
+    </div>
+    <div class="mask bg-black/20 absolute inset-0"></div>
+</div>
+  <main class="pt-14">
+    <!-- css -->
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.min.css">
+
+
+<link rel="stylesheet" href="/lib/tocbot/tocbot.min.css">
+
+<!-- toc -->
+
+  <!-- tocbot -->
+<nav class="post-toc toc text-sm w-48 relative top-32 right-0 opacity-70 hidden lg:block" style="position: fixed !important;"></nav>
+
+
+<section class="px-6 max-w-prose mx-auto md:px-0">
+  <!-- header -->
+  <header class="overflow-hidden pt-6 pb-6 md:pt-12">
+    <div class="pt-4 md:pt-6">
+      <h1 id="article-title" class="text-[2rem] font-bold leading-snug mb-4 md:mb-6 md:text-[2.6rem]">
+        开始做公众号的第一天，给自己反思过往、改变生活的机会
+      </h1>
+      <div>
+        <section class="flex items-center gap-3 text-sm">
+          <span class="flex items-center gap-1">
+            <iconify-icon width="18" icon="carbon-calendar" ></iconify-icon>
+            <time>2023-09-15</time>
+          </span>
+          <span class="text-gray-400">·</span>
+          <span class="flex items-center gap-1">
+            <iconify-icon width="18" icon="ic:round-access-alarm" ></iconify-icon>
+            <span>5 min</span>
+          </span>
+          <span class="text-gray-400">·</span>
+          <span class="flex items-center gap-1">
+            <iconify-icon width="18" icon="icon-park-outline:font-search" ></iconify-icon>
+            <span>1.7k words</span>
+          </span>
+          
+        </section>
+      </div>
+    </div>
+  </header>
+  <!-- content -->
+  <article class="post-content prose m-auto slide-enter-content dark:prose-invert">
+    <h1 id="开始做公众号的第一天，给自己反思过往、改变生活的机会"><a href="#开始做公众号的第一天，给自己反思过往、改变生活的机会" class="headerlink" title="开始做公众号的第一天，给自己反思过往、改变生活的机会"></a>开始做公众号的第一天，给自己反思过往、改变生活的机会</h1><p>自离开校园，再也没有机会坐下来，慢慢的、认真的去记录一些什么，时间久了，竟也无法提笔诉说。</p>
+<p>从2014年公众号红利期开始，我就随大流地注册了公众号，但是来来回回，竟然还是没有开始。</p>
+<p>这已经是我第三次注册公众号了，也准备认真开始记录些什么。记录我未来的生活、兴趣，所思所想，传递我对生活的态度。</p>
+<h2 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h2><p>第一篇，还是先做个自我介绍吧。</p>
+<p>我叫文七刀。</p>
+<p>有过几年的创业经历，现在是一家互联网的产品经理。过着<strong>表面一片祥和、内心却波澜壮阔</strong>的生活。</p>
+<p>我的履历很简单。</p>
+<p>但是却折腾了很久。</p>
+<p>大概是我真的太喜欢<strong>折腾</strong>了。我喜欢在不同的城市生活、居住，用整个热情去体验每一个城市带给我的感受和不同，这让我感觉生命美好，万物可期。</p>
+<p>这些年，走过的地方，受过的思想碰撞，让我无法停止自己的脚步。我的目光永远在前方，总感觉有无数的可能性在等待着我去发现，去体验，去感受，去领略。<strong>我既兴奋又痴迷。</strong></p>
+<p>有时候我会特别羡慕周围的同事朋友，他们能在一个岗位上有十几年的积累和蓄势，这些都成为后来事业成功的基石。转而问问自己：“如果可以，你愿意吗？” 我又感觉自己好像受到了莫大的委屈。</p>
+<p>所以，大概我最需要的不是羡慕他人的生活，而是梳理并悦纳自己吧。</p>
+<h2 id="关于名字"><a href="#关于名字" class="headerlink" title="关于名字"></a>关于名字</h2><p>在注册公众号的前两天，我想了好多名字，但是都被注册了，我懊恼极了。</p>
+<p>我也觉得一个人在这里懊恼是没有用的，所以我机智地拉上了董董董和猴哥一起痛苦，他们每天都在我的「威逼利诱」下不断在群里扔出来各种奇奇怪怪的名字，被我否了又否。</p>
+<p>终于在第二天的晚上，我在群里丢了一个名字<strong>「文七刀」</strong>。</p>
+<p>他们赶紧激动的问，这个名字有人注册吗？</p>
+<p>我答没有。</p>
+<p>然后就是一顿来自马屁式吹捧，“这个好，江湖侠气”，“对，<strong>七刀为切</strong>。文七刀，就是文切啊”，“对，就是文人的切磋，文切”，“好好好”，“不错不错”。。。</p>
+<p>马屁之后问董董董问我怎么想出来的，有什么特别的寓意。</p>
+<p>我：。。。</p>
+<p>确实有个故事，但还是以后再说吧。</p>
+<blockquote>
+<p>有句话是这么说的：1万个正确的考虑不如一个有缺点的行动。</p>
+</blockquote>
+<p>所以就这样，我仓促的准备好了，<strong>上路</strong>。</p>
+<h2 id="关于学习"><a href="#关于学习" class="headerlink" title="关于学习"></a>关于学习</h2><p>我最喜欢的学习状态，就是<strong>认知被不断突破</strong>带来的爽感。那种原有认知碎一地的声音，能让你切切实实的感受到自己真的是在成长。大概像是一种<strong>肌肉撕裂</strong>的声音，感受得到的痛，感受得到的爽。</p>
+<p>上周末的时候我参加了<strong>新精英生涯实战班</strong>的学习，虽然只有短短3天，但是我的大脑真的是要炸掉了。当不断的有大块大块的知识强行塞到这颗小小的脑子里面，你明明感觉到已经装不下了装不下了，但是还是要不停的汲取的时候，真的让人混乱和头大。晚上回到床上，我倒头就睡着了。</p>
+<p>当太阳升起，新的一天来临，又是同样的冲击。在这一次次的冲击中，被强行拔高的认知，在一点点的和你的身体融为一体。这真的是一种很奇妙的感觉。让人很兴奋。</p>
+<p>收获到你从来没有想过的问题，疏通了卡了几年都无法破除的卡点，那些自带能量和资源的人带给你的震撼，都让你深深的感受到知识的力量。这些都充满了魅力。</p>
+<p>相对于知识来带的兴奋，人与人的链接更加奇妙。</p>
+<p>他们的一言一行，都在无时无刻的影响着你，重新刻画着你对于既有书本上知识点的深刻理解。</p>
+<blockquote>
+<p>所以老师说，不管是心理咨询师，还是生涯咨询师，都是一种<strong>「用生命影响生命」</strong>的状态。</p>
+</blockquote>
+<p>对此我深有感触。</p>
+<p>所以但凡体会过认知成长的人，大概这辈子都再也不会放弃<strong>学习</strong>了。《终身成长》大概就是如此。</p>
+<h2 id="关于工作"><a href="#关于工作" class="headerlink" title="关于工作"></a>关于工作</h2><p>现在的时代已经再也不像十年前，为了工资为了温饱。工作带给人的，更多的是价值和成就感。特别是当周围充斥着95后，感觉更是如此。</p>
+<p>我可以因为不喜欢一个工作而辞职，也可以因为喜欢一个工作而废寝忘食。所以我对工作的理解，更多的<strong>基于价值</strong>。</p>
+<p>当然对于职业生涯的理解和探索，我不得不把我的老师<strong>古典</strong>搬出来了，<strong>「职业生涯三叶草」</strong>模型和<strong>「生涯四看」</strong>，助力我看清职业，看清自己。</p>
+<p>所以对于这一部分的理解，出门右转 <strong><a target="_blank" rel="noopener" href="https://www.xjy.cn/">新精英生涯</a></strong> ，带给你不一样的认知体验。</p>
+<p><img src="https://wenqidao.oss-cn-shanghai.aliyuncs.com/img/202306080258752.jpeg" alt="图片"></p>
+<h2 id="关于生活"><a href="#关于生活" class="headerlink" title="关于生活"></a>关于生活</h2><p>生活上，因为自己的“<strong>折腾</strong>”，让生命多了更多的可能和视角，也让生命多了一些分外的精彩。和爱的人一起去发现更多的美好，我已经想不到比这个更酷的事情了。（当然，不能太贫穷啊啊）</p>
+<p>安安稳稳，开开心心，是一种精彩；</p>
+<p>见人，见事，见天地，是另外一种精彩；</p>
+<p>偶尔周围有朋友会问，那你父母谁来照顾？</p>
+<p>我回：<code>我有个哥，亲哥。在家</code>。</p>
+<p>然后接下来基本就是享受朋友们投来的羡慕的目光了。</p>
+<p>痛苦的是日益飙升的体重，和懒死都不愿意动一动的身体。</p>
+<p><strong>over</strong></p>
+<p>以后我也会分享更多关于职场-成长-阅读-历史的话题，喜欢可以关注我的公众号呀</p>
+<hr>
+<p><strong>- 文七刀 -</strong></p>
+<p>原教培创业者，现互联网产品经理</p>
+<p>喜欢阅读，喜欢思考，喜欢历史</p>
+<p>渴求新知，喜欢不断打破自己认知边界的爽感，热爱成长</p>
+<p>还喜欢折腾，希望通过折腾，成长为自己的样子</p>
+<p>活出一个精彩绝伦的生命！</p>
+
+  </article>
+  <!-- tag -->
+  <div class="mt-12 pt-6 border-t border-gray-200">
+    
+  </div>
+  <!-- prev and next -->
+  <div class="flex justify-between mt-12 pt-6 border-t border-gray-200">
+    <div>
+      
+        <a href="/p/20200617-my-studyroom/" class="text-sm text-gray-400 hover:text-gray-500 flex justify-center">
+          <iconify-icon width="20" icon="ri:arrow-left-s-line" data-inline="false"></iconify-icon>
+          你闯入了一个陌生人的书房
+        </a>
+      
+    </div>
+    <div>
+      
+        <a href="/p/20200104-sudo-permissions/" class="text-sm text-gray-400 hover:text-gray-500 flex justify-center">
+          在 macOS 系统中，每次操作都需要 sudo 命令来提高权限，怎么解决？
+          <iconify-icon width="20" icon="ri:arrow-right-s-line" data-inline="false"></iconify-icon>
+        </a>
+      
+    </div>
+  </div>
+  <!-- comment -->
+  <div class="article-comments mt-12">
+    
+
+  </div>
+</section>
+<!-- js inspect -->
+
+<script src="/lib/clipboard.min.js"></script>
+
+
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(() => {
+    const maraidConfig = {
+      theme: "default",
+      logLevel: 3,
+      flowchart: { curve: "linear" },
+      gantt: { axisFormat: "%m/%d/%Y" },
+      sequence: { actorMargin: 50 },
+    };
+    mermaid.initialize(maraidConfig);
+  });
+</script>
+
+
+
+<script src="/lib/fancybox/fancybox.umd.min.js"></script>
+
+<script>
+  $(document).ready(() => {
+    $('.post-content').each(function(i){
+      $(this).find('img').each(function(){
+        if ($(this).parent().hasClass('fancybox') || $(this).parent().is('a')) return;
+        var alt = this.alt;
+        if (alt) $(this).after('<span class="fancybox-alt">' + alt + '</span>');
+        $(this).wrap('<a class="fancybox-img" href="' + this.src + '" data-fancybox=\"gallery\" data-caption="' + alt + '"></a>')
+      });
+      $(this).find('.fancybox').each(function(){
+        $(this).attr('rel', 'article' + i);
+      });
+    });
+
+    Fancybox.bind('[data-fancybox="gallery"]', {
+        // options
+    })
+  })
+</script>
+
+<!-- tocbot begin -->
+
+<script src="/lib/tocbot/tocbot.min.js"></script>
+
+<script>
+  $(document).ready(() => {
+      tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.post-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.post-content',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+        // For headings inside relative or absolute positioned containers within content.
+        hasInnerContainers: true,
+    });
+  })
+</script>
+<!-- tocbot end -->
+
+
+  </main>
+  <footer class="flex flex-col h-40 items-center justify-center text-gray-400 text-sm">
+    <!-- busuanzi -->
+    
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- Busuanzi Analytics -->
+<div class="flex items-center gap-2">
+  <span>Visitors</span>
+  <span id="busuanzi_value_site_uv"></span>
+  <span>Page Views</span>
+  <span id="busuanzi_value_site_pv"></span>
+</div>
+<!-- End Busuanzi Analytics -->
+
+
+        <!-- copyright -->
+        <div class="flex items-center gap-2">
+
+            <span>CC BY-NC-SA 4.0 © 2023</span>
+            <iconify-icon width="18" icon="emojione-monotone:maple-leaf"></iconify-icon>
+            <a href="https://baduyifei.com" target="_blank" rel="noopener noreferrer">baduyifei</a>
+        </div>
+        <!-- powered by -->
+        <div class="flex items-center gap-2">
+            <span>Nothing is impossible for a willing heart.</span>
+
+        </div>
+
+</footer>
+  <div class="back-to-top box-border fixed right-6 z-1024 -bottom-20 rounded py-1 px-1 bg-slate-900 opacity-60 text-white cursor-pointer text-center dark:bg-slate-600">
+    <span class="flex justify-center items-center text-sm">
+      <iconify-icon width="18" icon="ion:arrow-up-c" id="go-top"></iconify-icon>
+      <span id="scrollpercent"><span>0</span> %</span>
+    </span>
+  </div>
+  
+<script src="/js/main.js"></script>
+
+
+
+
+  <div class="fixed top-0 bottom-0 left-0 right-0 pointer-events-none print:hidden" id="maple"></div>
+</body>
+
+</html>
